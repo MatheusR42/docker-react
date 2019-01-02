@@ -11,3 +11,22 @@ before_install:
 
 script:
   - docker run matheusr42/docker-react npm run test -- --coverage
+
+deploy:
+  #TravisCI is preconfigured to deploy to some providers
+  provider: elasticbeanstalk
+  #region on application url
+  region: "us-east-2"
+  #application name
+  app: "docker-react"
+  env: "DockerReact-env"
+  #bucket in s3 service
+  bucket_name: "elasticbeanstalk-us-east-2-713876930045"
+  #app name
+  bucket_path: "docker-react"
+  #this only runs in master branch
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_ACCESS_TOKEN"
